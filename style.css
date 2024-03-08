@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    text-align:center;
+}
+
+.card-wrapper {
+    margin:20px;
+}
+.card {
+    max-width: 400px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    padding:20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background: none;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    border: 1px solid #007bff;
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+button:hover {
+    background-color: #0056b3;
+}
+
+button.light {
+    background-color: inherit;
+    color: inherit;
+    border: 1px solid #007bff;
+}
+button.light:hover {
+    background-color: #0056b3;
+}
+
+iframe.addressly-frame {
+    border:0;
+    width:0;
+    height:0;
+    display:none;
+}
+
+iframe.addressly-frame.expanded {
+    display:block;
+    position:absolute;
+    top:2%;
+    left:2%;
+    width:96%;
+    height:96%;
+}
+
+.addressly-frame-content {
+    background:#fff;
+}
