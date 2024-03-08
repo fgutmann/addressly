@@ -1,0 +1,81 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: addressly
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: addressly
+  namespace: addressly
+spec:
+  type: ExternalName
+  externalName: addressly-gh.chronimo.com
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: addressly
+  namespace: addressly
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/upstream-vhost: "addressly-gh.chronimo.com"
+  labels:
+    app.kubernetes.io/instance: addressly
+    app.kubernetes.io/name: addressly
+spec:
+  ingressClassName: public
+  rules:
+    - host: addressly.chronimo.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: addressly
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+    - host: shop1.chronimo.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: addressly
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+    - host: shop2.chronimo.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: addressly
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+    - host: shop3.chronimo.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: addressly
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - addressly.chronimo.com
+        - shop1.chronimo.com
+        - shop2.chronimo.com
+        - shop3.chronimo.com
+      secretName: addressly-tls
