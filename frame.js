@@ -22,7 +22,7 @@ formEl.addEventListener("submit", e => {
     e.preventDefault();
     const data = dataFromForm();
     window.localStorage.setItem(storageKey, JSON.stringify(data));
-    window.parent.postMessage(data);
+    window.parent.postMessage(data, "*");
 })
 
 if (window.localStorage.getItem(storageKey) !== null) {
