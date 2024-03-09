@@ -10,11 +10,28 @@ buttonEl.addEventListener("click", e => {
 
 const populateForm = (data) => {
     for (const el of allInputs) {
-        el.value = data[el.attributes["name"].value];
+        const value = data[el.attributes["name"].value];
+        if (value) {
+            el.value = data[el.attributes["name"].value];
+        } else {
+            el.value = "";
+        }
     }
-}
+};
+
+const isLocalhost = document.location.host.indexOf("localhost") === 0;
+const origin = isLocalhost ? `${document.location.protocol}//${document.location.host}` : "https://addressly.chronimo.com";
 
 window.addEventListener("message", e => {
+    if (e.origin !== origin && e.data.type === "fill-event") {
+        // some other event
+        return;
+    }
+
     iframeEl.classList.remove("expanded");
     populateForm(e.data);
-})
+});
+
+if (isLocalhost) {
+    iframeEl.src = `addressly-frame.html`;
+}

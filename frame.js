@@ -1,6 +1,5 @@
 const storageKey = "data";
 
-const storeAndFillEl = document.querySelector(".js-store-and-fill");
 const formEl = document.querySelector(".js-addressly-form");
 const allInputs = formEl.querySelectorAll("input");
 
@@ -14,15 +13,20 @@ const dataFromForm = () => {
 
 const populateForm = (data) => {
     for (const el of allInputs) {
-        el.value = data[el.attributes["name"].value];
+        const value = data[el.attributes["name"].value];
+        if (value) {
+            el.value = data[el.attributes["name"].value];
+        } else {
+            el.value = "";
+        }
     }
-}
+};
 
 formEl.addEventListener("submit", e => {
     e.preventDefault();
     const data = dataFromForm();
     window.localStorage.setItem(storageKey, JSON.stringify(data));
-    window.parent.postMessage(data, "*");
+    window.parent.postMessage({type: "fill-event", ...data}, "*");
 })
 
 if (window.localStorage.getItem(storageKey) !== null) {
